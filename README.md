@@ -71,3 +71,29 @@ export default defineConfig([
   },
 ])
 ```
+
+## Docker
+
+Build and run the production image (multi-stage build with nginx):
+
+```bash
+# build the image
+docker build -t mala-inventory:latest .
+
+# run (serves app on http://localhost:8080)
+docker run --rm -p 8080:80 mala-inventory:latest
+```
+
+Run with docker-compose (recommended for local dev and quick testing):
+
+```bash
+# build and run the production web service
+docker-compose up --build web
+
+# or start the dev service (vite with hot reload)
+docker-compose up dev
+```
+
+Notes:
+- The production image serves the `dist` folder using `nginx`.
+- If your app's API is hosted separately, update `nginx.conf` proxy settings or point the frontend to the API URL.
